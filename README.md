@@ -1,58 +1,160 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Contributing to PosyanduApp
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+Terima kasih sudah berminat berkontribusi pada PosyanduApp. Dokumen ini menjelaskan langkah awal dari cloning repositori sampai kontribusi kode siap dikirim melalui GitHub.
 
-## About Laravel
+## 1. Persiapan Awal
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. Pastikan komputer Anda sudah terpasang:
+   - PHP 8.3 atau lebih baru
+   - Composer
+   - Node.js (versi terbaru yang stabil)
+   - Git
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
-
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-In addition, [Laracasts](https://laracasts.com) contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-You can also watch bite-sized lessons with real-world projects on [Laravel Learn](https://laravel.com/learn), where you will be guided through building a Laravel application from scratch while learning PHP fundamentals.
-
-## Agentic Development
-
-Laravel's predictable structure and conventions make it ideal for AI coding agents like Claude Code, Cursor, and GitHub Copilot. Install [Laravel Boost](https://laravel.com/docs/ai) to supercharge your AI workflow:
+2. Clone repositori dari GitHub:
 
 ```bash
-composer require laravel/boost --dev
-
-php artisan boost:install
+git clone <repository-url>
+cd posyanduApp
 ```
 
-Boost provides your agent 15+ tools and skills that help agents build Laravel applications while following best practices.
+> Ganti `<repository-url>` dengan alamat repositori PosyanduApp di GitHub.
 
-## Contributing
+## 2. Instalasi Dependensi
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Jalankan perintah berikut dari folder project:
 
-## Code of Conduct
+```bash
+composer install
+npm install
+```
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## 3. Konfigurasi Lingkungan
 
-## Security Vulnerabilities
+1. Salin file lingkungan:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```bash
+cp .env.example .env
+```
 
-## License
+2. Jika Anda memakai Windows PowerShell:
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```powershell
+Copy-Item .env.example .env
+```
+
+3. Buat `APP_KEY` baru:
+
+```bash
+php artisan key:generate
+```
+
+4. Jika memakai database SQLite, buat file database:
+
+```bash
+mkdir -p database
+copy NUL database\database.sqlite
+```
+
+Jika memakai database MySQL / MariaDB, sesuaikan pengaturan di file `.env`:
+
+```dotenv
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=posyanduapp
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+## 4. Migrasi dan Seed Data
+
+Jalankan migrasi untuk menyiapkan tabel database:
+
+```bash
+php artisan migrate
+```
+
+Jika Anda ingin menambahkan data awal, tambahkan seeder terlebih dahulu lalu jalankan:
+
+```bash
+php artisan db:seed
+```
+
+## 5. Build Aset Frontend
+
+Untuk membuat file `manifest.json` dan aset CSS/JS:
+
+```bash
+npm run build
+```
+
+Untuk menjalankan mode pengembangan dengan watch/live reload:
+
+```bash
+npm run dev
+```
+
+## 6. Menjalankan Aplikasi Secara Lokal
+
+Jika ingin melihat aplikasi di browser:
+
+```bash
+php artisan serve
+```
+
+Buka `http://127.0.0.1:8000` di browser.
+
+## 7. Workflow Kontribusi GitHub
+
+1. Buat branch baru dari `main` atau `master`:
+
+```bash
+git checkout -b feature/nama-fitur
+```
+
+2. Kerjakan perubahan Anda.
+3. Tambahkan dan commit perubahan:
+
+```bash
+git add .
+git commit -m "Menambahkan fitur X pada PosyanduApp"
+```
+
+4. Push branch ke remote:
+
+```bash
+git push origin feature/nama-fitur
+```
+
+5. Buat Pull Request di GitHub dan jelaskan perubahan yang dilakukan.
+
+## 8. Menjalankan Tes
+
+Untuk memeriksa apakah kode berjalan baik:
+
+```bash
+composer test
+```
+
+Jika Anda ingin membersihkan konfigurasi cache sebelum tes:
+
+```bash
+php artisan config:clear
+php artisan test
+```
+
+## 9. Best Practices
+
+- Gunakan bahasa Indonesia yang jelas untuk komentar dan pesan commit.
+- Ikuti konvensi Laravel untuk struktur kode dan nama class.
+- Pastikan `resources/views` tetap rapi dan mudah dipahami.
+- Jangan commit file `.env` atau file build yang bersifat sementara.
+- Jika menambahkan dependensi baru, jalankan kembali `composer install` atau `npm install`.
+
+## 10. Catatan Tambahan
+
+- Project ini menggunakan Laravel 13 dan Vite.
+- Frontend menggunakan Tailwind CSS dengan `resources/css/app.css`.
+- Tampilan awal berada di `resources/views/welcome.blade.php`.
+
+Jika Anda menemui masalah, silakan buka issue di GitHub atau diskusikan langsung di Pull Request.
